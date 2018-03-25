@@ -9,10 +9,10 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes
     {
         #region From Delegate
         
-        internal static Func<TCommand, CancellationToken, Task> FromDelegate<TAttributed, TCommand>(Func<object> attributedObjectFactory, 
-                                                                                                    Func<TAttributed, TCommand, Task> nonCancellableAsyncDelegate)
-                                                                                                    where TAttributed : class
-                                                                                                    where TCommand : class
+        internal static MessageHandlerDelegate FromDelegate<TAttributed, TCommand>(Func<object> attributedObjectFactory, 
+                                                                                   Func<TAttributed, TCommand, Task> nonCancellableAsyncDelegate)
+                                                                                   where TAttributed : class
+                                                                                   where TCommand : class
         {
             if (attributedObjectFactory == null)
             {
@@ -32,14 +32,20 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes
                     return TaskUtility.FromException(exception);
                 }
                 
-                return nonCancellableAsyncDelegate.Invoke(instance, inputCommand);
+                // Check for correct command type.
+                if (inputCommand is TCommand c)
+                {
+                    return nonCancellableAsyncDelegate.Invoke(instance, c);
+                }
+
+                return TaskUtility.FromException(new ArgumentException($"Invalid command. Expected command of type {typeof(TCommand).Name} but {inputCommand.GetType().Name} was found.", nameof(inputCommand)));
             };
         }
 
-        internal static Func<TCommand, CancellationToken, Task> FromDelegate<TAttributed, TCommand>(Func<object> attributedObjectFactory, 
-                                                                                                    Func<TAttributed, TCommand, CancellationToken, Task> cancellableAsyncDelegate)
-                                                                                                    where TAttributed : class
-                                                                                                    where TCommand : class
+        internal static MessageHandlerDelegate FromDelegate<TAttributed, TCommand>(Func<object> attributedObjectFactory, 
+                                                                                   Func<TAttributed, TCommand, CancellationToken, Task> cancellableAsyncDelegate)
+                                                                                   where TAttributed : class
+                                                                                   where TCommand : class
         {
             if (attributedObjectFactory == null)
             {
@@ -59,14 +65,20 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes
                     return TaskUtility.FromException(exception);
                 }
                 
-                return cancellableAsyncDelegate.Invoke(instance, inputCommand, cancellationToken);
+                // Check for correct command type.
+                if (inputCommand is TCommand c)
+                {
+                    return cancellableAsyncDelegate.Invoke(instance, c, cancellationToken);
+                }
+
+                return TaskUtility.FromException(new ArgumentException($"Invalid command. Expected command of type {typeof(TCommand).Name} but {inputCommand.GetType().Name} was found.", nameof(inputCommand)));
             };
         }
 
-        internal static Func<TCommand, CancellationToken, Task> FromDelegate<TAttributed, TCommand>(Func<object> attributedObjectFactory, 
-                                                                                                    Action<TAttributed, TCommand> action)
-                                                                                                    where TAttributed : class
-                                                                                                    where TCommand : class
+        internal static MessageHandlerDelegate FromDelegate<TAttributed, TCommand>(Func<object> attributedObjectFactory, 
+                                                                                   Action<TAttributed, TCommand> action)
+                                                                                   where TAttributed : class
+                                                                                   where TCommand : class
         {
             if (attributedObjectFactory == null)
             {
@@ -88,8 +100,14 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes
                         return TaskUtility.FromException(exception);
                     }
 
-                    action.Invoke(instance, inputCommand);
-                    return TaskUtility.CompletedTask;
+                    // Check for correct command type.
+                    if (inputCommand is TCommand c)
+                    {
+                        action.Invoke(instance, c);
+                        return TaskUtility.CompletedTask;
+                    }
+
+                    return TaskUtility.FromException(new ArgumentException($"Invalid command. Expected command of type {typeof(TCommand).Name} but {inputCommand.GetType().Name} was found.", nameof(inputCommand)));
                 }
                 catch (Exception ex)
                 {
@@ -108,7 +126,7 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes
             // Defaults.
             instance = null;
 
-            if(TryGetInstanceFromFactory(factory, out var factoryInstance, out exception))
+            if (TryGetInstanceFromFactory(factory, out var factoryInstance, out exception))
             {
                 instance = factoryInstance as TExpectedInstance;
                 if (instance == null)

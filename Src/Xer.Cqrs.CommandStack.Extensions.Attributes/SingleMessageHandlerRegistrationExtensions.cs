@@ -140,7 +140,7 @@ namespace Xer.Delegator.Registrations
                     .Invoke(null, new object[]
                     {
                         registration,
-                        commandHandlerMethod
+                        commandHandlerMethod.CreateCommandHandlerDelegate()
                     });
             }
         }
@@ -154,13 +154,13 @@ namespace Xer.Delegator.Registrations
         /// </summary>
         /// <typeparam name="TCommand">Type of command.</typeparam>
         /// <param name="registration">Message handler registration.</param>
-        /// <param name="commandHandlerMethod">Command handler method object built from a method marked with [CommandHandler] attribute.</param>
+        /// <param name="messageHandlerDelegate">Message handler delegate built from a method marked with [CommandHandler] attribute.</param>
         private static void registerMessageHandlerDelegate<TCommand>(SingleMessageHandlerRegistration registration,
-                                                                     CommandHandlerAttributeMethod commandHandlerMethod)
+                                                                     MessageHandlerDelegate messageHandlerDelegate)
                                                                      where TCommand : class
         {
             // Create delegate and register.
-            registration.Register<TCommand>(commandHandlerMethod.CreateCommandHandlerDelegate());
+            registration.Register<TCommand>(messageHandlerDelegate.Invoke);
         }
 
         #endregion Functions

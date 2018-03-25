@@ -15,7 +15,7 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes.Tests.Registration
 {
     public class AttributeRegistrationTests
     {
-        #region RegisterCommandHandlerAttributes Method
+        #region RegisterCommandHandlersByAttribute Method
 
         public class RegisterCommandHandlerAttributes
         {
@@ -48,7 +48,7 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes.Tests.Registration
             }
 
             [Fact]
-            public async Task ShouldRegisterAllCommandHandlerAttributeMethodObjects()
+            public async Task ShouldRegisterAllCommandHandlerAttributeMethods()
             {
                 var commandHandler = new TestAttributedCommandHandler(_outputHelper);
 
@@ -92,6 +92,6 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes.Tests.Registration
             }
         }
 
-        #endregion RegisterCommandHandlerAttributes Method
+        #endregion RegisterCommandHandlersByAttribute Method
     }
 }
