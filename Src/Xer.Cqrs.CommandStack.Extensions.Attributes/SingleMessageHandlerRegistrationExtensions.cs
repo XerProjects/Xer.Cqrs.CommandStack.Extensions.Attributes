@@ -5,7 +5,7 @@ using System.Reflection;
 using Xer.Cqrs.CommandStack;
 using Xer.Cqrs.CommandStack.Extensions.Attributes;
 
-namespace Xer.Delegator.Registrations
+namespace Xer.Delegator.Registration
 {
     public static partial class SingleMessageHandlerRegistrationExtensions
     {
