@@ -32,7 +32,7 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes.Tests.Registration
                 var commandHandler = new TestAttributedCommandHandler(_outputHelper);
 
                 var registration = new SingleMessageHandlerRegistration();
-                registration.RegisterCommandHandlerAttributes(() => commandHandler);
+                registration.RegisterCommandHandlersByAttribute(() => commandHandler);
 
                 IMessageHandlerResolver resolver = registration.BuildMessageHandlerResolver();
 
@@ -56,7 +56,7 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes.Tests.Registration
                 IEnumerable<CommandHandlerAttributeMethod> methods = CommandHandlerAttributeMethod.FromType(() => commandHandler);
 
                 var registration = new SingleMessageHandlerRegistration();
-                registration.RegisterCommandHandlerAttributes(methods);
+                registration.RegisterCommandHandlersByAttribute(methods);
 
                 IMessageHandlerResolver resolver = registration.BuildMessageHandlerResolver();
 
@@ -79,7 +79,7 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes.Tests.Registration
                     try
                     {
                         var registration = new SingleMessageHandlerRegistration();
-                        registration.RegisterCommandHandlerAttributes(() => new TestAttributedSyncCommandHandlerWithCancellationToken(_outputHelper));
+                        registration.RegisterCommandHandlersByAttribute(() => new TestAttributedSyncCommandHandlerWithCancellationToken(_outputHelper));
                     }
                     catch (Exception ex)
                     {

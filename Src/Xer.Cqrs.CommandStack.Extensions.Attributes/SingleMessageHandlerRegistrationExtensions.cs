@@ -33,11 +33,11 @@ namespace Xer.Delegator.Registrations
         /// </remarks>
         /// <param name="registration">Message handler registration.</param>
         /// <param name="attributedObjectFactory">Factory delegate which provides an instance of a class that contains methods marked with [CommandHandler] attribute.</param>
-        public static void RegisterCommandHandlerAttributes<TAttributed>(this SingleMessageHandlerRegistration registration,
-                                                                         Func<TAttributed> attributedObjectFactory)
-                                                                         where TAttributed : class
+        public static void RegisterCommandHandlersByAttribute<TAttributed>(this SingleMessageHandlerRegistration registration,
+                                                                           Func<TAttributed> attributedObjectFactory)
+                                                                           where TAttributed : class
         {
-            RegisterCommandHandlerAttributes(registration, CommandHandlerAttributeMethod.FromType<TAttributed>(attributedObjectFactory));
+            RegisterCommandHandlersByAttribute(registration, CommandHandlerAttributeMethod.FromType<TAttributed>(attributedObjectFactory));
         }
 
         /// <summary>
@@ -50,11 +50,11 @@ namespace Xer.Delegator.Registrations
         /// <param name="registration">Message handler registration.</param>
         /// <param name="type">Type to scan for methods marked with the [CommandHandler] attribute.</param>
         /// <param name="instanceFactory">Factory delegate that provides an instance of the specified type.</param>
-        public static void RegisterCommandHandlerAttributes(this SingleMessageHandlerRegistration registration,
-                                                            Type type, 
-                                                            Func<object> instanceFactory)
+        public static void RegisterCommandHandlersByAttribute(this SingleMessageHandlerRegistration registration,
+                                                              Type type, 
+                                                              Func<object> instanceFactory)
         {
-            RegisterCommandHandlerAttributes(registration, CommandHandlerAttributeMethod.FromType(type, instanceFactory));
+            RegisterCommandHandlersByAttribute(registration, CommandHandlerAttributeMethod.FromType(type, instanceFactory));
         }
 
         /// <summary>
@@ -67,11 +67,11 @@ namespace Xer.Delegator.Registrations
         /// <param name="registration">Message handler registration.</param>
         /// <param name="types">Types to scan for methods marked with the [CommandHandler] attribute.</param>
         /// <param name="instanceFactory">Factory delegate that provides an instance of a given type.</param>
-        public static void RegisterCommandHandlerAttributes(this SingleMessageHandlerRegistration registration,
-                                                            IEnumerable<Type> types, 
-                                                            Func<Type, object> instanceFactory)
+        public static void RegisterCommandHandlersByAttribute(this SingleMessageHandlerRegistration registration,
+                                                              IEnumerable<Type> types, 
+                                                              Func<Type, object> instanceFactory)
         {
-            RegisterCommandHandlerAttributes(registration, CommandHandlerAttributeMethod.FromTypes(types, instanceFactory));
+            RegisterCommandHandlersByAttribute(registration, CommandHandlerAttributeMethod.FromTypes(types, instanceFactory));
         }
 
         /// <summary>
@@ -84,11 +84,11 @@ namespace Xer.Delegator.Registrations
         /// <param name="registration">Message handler registration.</param>
         /// <param name="assembly">Assembly to scan for methods marked with the [CommandHandler] attribute.</param>
         /// <param name="instanceFactory">Factory delegate that provides an instance of a type that has methods marked with [CommandHandler] attribute.</param>
-        public static void RegisterCommandHandlerAttributes(this SingleMessageHandlerRegistration registration,
-                                                            Assembly assembly, 
-                                                            Func<Type, object> instanceFactory)
+        public static void RegisterCommandHandlersByAttribute(this SingleMessageHandlerRegistration registration,
+                                                              Assembly assembly, 
+                                                              Func<Type, object> instanceFactory)
         {
-            RegisterCommandHandlerAttributes(registration, CommandHandlerAttributeMethod.FromAssembly(assembly, instanceFactory));
+            RegisterCommandHandlersByAttribute(registration, CommandHandlerAttributeMethod.FromAssembly(assembly, instanceFactory));
         }
 
         /// <summary>
@@ -101,26 +101,11 @@ namespace Xer.Delegator.Registrations
         /// <param name="registration">Message handler registration.</param>
         /// <param name="assembly">Assembly to scan for methods marked with the [CommandHandler] attribute.</param>
         /// <param name="instanceFactory">Factory delegate that provides an instance of a type that has methods marked with [CommandHandler] attribute.</param>
-        public static void RegisterCommandHandlerAttributes(this SingleMessageHandlerRegistration registration,
-                                                            IEnumerable<Assembly> assemblies, 
-                                                            Func<Type, object> instanceFactory)
+        public static void RegisterCommandHandlersByAttribute(this SingleMessageHandlerRegistration registration,
+                                                              IEnumerable<Assembly> assemblies, 
+                                                              Func<Type, object> instanceFactory)
         {
-            RegisterCommandHandlerAttributes(registration, CommandHandlerAttributeMethod.FromAssemblies(assemblies, instanceFactory));
-        }
-
-        /// <summary>
-        /// Register methods marked with the [CommandHandler] attribute as command handlers.
-        /// <para>Supported signatures for methods marked with [CommandHandler] are: (Methods can be named differently)</para>
-        /// <para>void HandleCommand(TCommand command);</para>
-        /// <para>Task HandleCommandAsync(TCommand command);</para>
-        /// <para>Task HandleCommandAsync(TCommand command, CancellationToken cancellationToken);</para>
-        /// </summary>
-        /// <param name="registration">Message handler registration.</param>
-        /// <param name="commandHandlerMethod">Object which represents a method marked with [CommandHandler] attribute.</param>
-        public static void RegisterCommandHandlerAttributes(this SingleMessageHandlerRegistration registration,
-                                                            CommandHandlerAttributeMethod commandHandlerMethod)
-        {
-            RegisterCommandHandlerAttributes(registration, new[] { commandHandlerMethod });
+            RegisterCommandHandlersByAttribute(registration, CommandHandlerAttributeMethod.FromAssemblies(assemblies, instanceFactory));
         }
 
         /// <summary>
@@ -132,8 +117,8 @@ namespace Xer.Delegator.Registrations
         /// </summary>
         /// <param name="registration">Message handler registration.</param>
         /// <param name="commandHandlerMethods">Objects which represent methods marked with [CommandHandler] attribute.</param>
-        public static void RegisterCommandHandlerAttributes(this SingleMessageHandlerRegistration registration,
-                                                            IEnumerable<CommandHandlerAttributeMethod> commandHandlerMethods)
+        public static void RegisterCommandHandlersByAttribute(this SingleMessageHandlerRegistration registration,
+                                                              IEnumerable<CommandHandlerAttributeMethod> commandHandlerMethods)
         {
             if (registration == null)
             {
