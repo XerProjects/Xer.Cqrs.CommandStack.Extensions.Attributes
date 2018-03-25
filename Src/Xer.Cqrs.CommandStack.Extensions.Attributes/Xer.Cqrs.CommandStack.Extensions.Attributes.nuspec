@@ -6,8 +6,8 @@
     <title>Xer.Cqrs.CommandStack.Extensions.Attributes</title>
     <authors>jeyjeyemem</authors>
     <owners>jeyjeyemem</owners>
-    <licenseUrl>https://github.com/XerProjects/Xer.Cqrs.EventStack.Extensions.Attributes/blob/master/LICENSE</licenseUrl>
-    <projectUrl>https://github.com/XerProjects/Xer.Cqrs.EventStack.Extensions.Attributes</projectUrl>
+    <licenseUrl>https://github.com/XerProjects/Xer.Cqrs.CommandStack.Extensions.Attributes/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/XerProjects/Xer.Cqrs.CommandStack.Extensions.Attributes</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Attribute-based registration extension for Xer.Cqrs.CommandStack.</description>
     <summary>Attribute-based registration extension for Xer.Cqrs.CommandStack.</summary>
