@@ -33,7 +33,7 @@ Setup(context =>
     BuildParameters.Initialize(Context);
     
     // Executed BEFORE the first task.
-    Information("Xer.Cqrs.Extensions.CommandStack.Attributes");
+    Information("Xer.Cqrs.CommandStack.Extensions.Attributes");
     Information("Parameters");
     Information("///////////////////////////////////////////////////////////////////////////////");
     Information("Branch: {0}", BuildParameters.Instance.BranchName);
