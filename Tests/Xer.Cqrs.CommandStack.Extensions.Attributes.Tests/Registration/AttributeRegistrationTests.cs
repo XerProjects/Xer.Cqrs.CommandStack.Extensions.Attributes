@@ -7,7 +7,7 @@ using FluentAssertions;
 using Xer.Cqrs.CommandStack;
 using Xer.Cqrs.CommandStack.Extensions.Attributes.Tests.Entities;
 using Xer.Delegator;
-using Xer.Delegator.Registrations;
+using Xer.Delegator.Registration;
 using Xunit;
 using Xunit.Abstractions;
 

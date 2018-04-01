@@ -1,11 +1,17 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
+    <TargetFramework>netstandard1.0</TargetFramework>
+    <Authors>jeyjeyemem;mvput;xerprojects-contributors;</Authors>
+    <Description>Attribute-based registration extension for Xer.Cqrs.CommandStack.</Description>
+    <Copyright>Copyright (c) XerProjects contributors</Copyright>
+    <PackageLicenseUrl>https://github.com/XerProjects/Xer.Cqrs.CommandStack.Extensions.Attributes/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/XerProjects/Xer.Cqrs.CommandStack.Extensions.Attributes</PackageProjectUrl>
+    <PackageTags>cqrs;attribute;command;command-handler;command-handling;command-message;</PackageTags>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Xer.Delegator" Version="0.3.0" />
+    <PackageReference Include="Xer.Delegator" Version="1.0.0" />
   </ItemGroup>
 
 </Project>
