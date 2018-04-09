@@ -27,7 +27,7 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes.Tests.Registration
             }
 
             [Fact]
-            public async Task ShouldRegisterAllMethodsOfTypeThatIsMarkedWithCommandHandlerAttribute()
+            public async Task ShouldRegisterAllMethodsThatAreMarkedWithCommandHandlerAttribute()
             {
                 var commandHandler = new TestAttributedCommandHandler(_outputHelper);
 
@@ -60,15 +60,15 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes.Tests.Registration
 
                 IMessageHandlerResolver resolver = registration.BuildMessageHandlerResolver();
 
-                MessageHandlerDelegate commandHandlerDelegate = resolver.ResolveMessageHandler(typeof(TestCommand));
+                MessageHandlerDelegate commandHandlerDelegate = resolver.ResolveMessageHandler(typeof(NonCancellableTestCommand));
 
                 commandHandlerDelegate.Should().NotBeNull();
 
                 // Delegate should invoke the actual command handler - TestAttributedCommandHandler.
-                await commandHandlerDelegate.Invoke(new TestCommand());
+                await commandHandlerDelegate.Invoke(new NonCancellableTestCommand());
 
                 commandHandler.HandledCommands.Should().HaveCount(1);
-                commandHandler.HasHandledCommand<TestCommand>().Should().BeTrue();
+                commandHandler.HasHandledCommand<NonCancellableTestCommand>().Should().BeTrue();
             }
 
             [Fact]

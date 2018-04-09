@@ -17,6 +17,11 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes.Tests.Entities
 
     }
 
+    public class NonCancellableTestCommand
+    {
+
+    }
+
     public class DelayCommand
     {
         public int DurationInMilliSeconds { get; }
