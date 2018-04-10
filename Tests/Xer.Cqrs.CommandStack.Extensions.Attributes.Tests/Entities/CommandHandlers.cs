@@ -80,6 +80,13 @@ namespace Xer.Cqrs.CommandStack.Extensions.Attributes.Tests.Entities
         }
 
         [CommandHandler]
+        public Task HandleNonCancellableTestCommand(NonCancellableTestCommand command)
+        {
+            BaseHandle(command);
+            return Task.CompletedTask;
+        }
+
+        [CommandHandler]
         public async Task HandleDelayCommand(DelayCommand command, CancellationToken ctx)
         {
             await Task.Delay(command.DurationInMilliSeconds, ctx);
